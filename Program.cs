@@ -1,4 +1,7 @@
 ﻿using System;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OrmLight
 {
@@ -6,7 +9,7 @@ namespace OrmLight
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.ReadKey();
         }
     }
 }
