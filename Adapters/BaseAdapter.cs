@@ -9,8 +9,9 @@ namespace OrmLight.Adapters
 {
     abstract class BaseAdapter : BaseComponent, IAdapter
     {
-        public BaseAdapter(long id) : base(id)
-        {
-        }        
+        //public BaseAdapter(long id) : base(id)
+        //{
+        //}        
+        public AdapterType AdapterType { get; protected set; }
     }
 }

@@ -9,6 +9,6 @@ namespace OrmLight
 {
     public interface IComponent
     {
-        JObject GetConfiguration();
+        //JObject GetConfiguration();
     }
 }

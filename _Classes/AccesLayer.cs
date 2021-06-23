@@ -11,16 +11,16 @@ namespace OrmLight
     {     
         private List<IAdapter> _adapters;
 
-        public AccesLayer(long id) : base(id)
-        {
-        }
+        //public AccesLayer(long id) : base(id)
+        //{
+        //}
 
-        public override JObject GetConfiguration()
-        {
-            var jConf = base.GetConfiguration();
-            jConf["adapters"] = JArray.FromObject(_adapters.Select(a => a.GetConfiguration()).ToArray());
+        //public override JObject GetConfiguration()
+        //{
+        //    var jConf = base.GetConfiguration();
+        //    jConf["adapters"] = JArray.FromObject(_adapters.Select(a => a.GetConfiguration()).ToArray());
 
-            return jConf;
-        }
+        //    return jConf;
+        //}
     }
 }

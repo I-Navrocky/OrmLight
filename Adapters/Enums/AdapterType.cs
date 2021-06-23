@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Adapters
 {
-    class MySqlAdapter : BaseAdapter
+    public enum AdapterType
     {
-        public MySqlAdapter(long id) : base(id)
-        { 
-        }
+        Custom,
+        MySql,
+        MsSql,
+        Csv,
+        Xls
     }
 }
