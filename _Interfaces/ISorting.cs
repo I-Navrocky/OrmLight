@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrmLight
 {
-    public interface IAdapter
+    public interface ISorting
     {
     }
 }

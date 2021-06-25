@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Adapters
 {
-    abstract class BaseAdapter : BaseComponent, IAdapter
+    abstract class BaseAdapter : IAdapter
     {
         //public BaseAdapter(long id) : base(id)
         //{

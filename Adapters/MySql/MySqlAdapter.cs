@@ -22,37 +22,34 @@ namespace OrmLight.Adapters
 
         private void Connect()
         {
-            try
+            if (_connection != null)
             {
-                if (_connection != null)
-                {
-                    _connection.Close();
-                    _connection.Dispose();
-                }
-                
-                _connection = new MySqlConnection(_connString);
-                _connection.Open();
-                _needConnect = false;
+                _connection.Close();
+                _connection.Dispose();
+            }
 
-                if (_connection.State != System.Data.ConnectionState.Open)               
-                    throw new ApplicationException("Connection attempt failed");
-            }
-            catch (Exception ex)
-            {
-                //TODO: обрбаботать или убрать
-                _needConnect = true;
-            }
+            _connection = new MySqlConnection(_connString);
+            _connection.Open();
+
+            if (_connection.State != System.Data.ConnectionState.Open)
+                throw new ApplicationException("Connection attempt failed");
+
+            _needConnect = false;
         }
 
         private void ExecuteQuery(string query)
         {
             try
             {
+                if (_needConnect)
+                    Connect();
+
                 var sqlCommand = new MySqlCommand(query, _connection);
                 sqlCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
+                _needConnect = true;
                 //TODO: обрбаботать или убрать   
             }
         }
