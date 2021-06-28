@@ -10,8 +10,10 @@ namespace OrmLight
     {
         static void Main(string[] args)
         {
+            //
             var route = new RouteEntity() { Name = "Test" };
             var com = new Command<RouteEntity>(route);
+            //
             Console.ReadKey();
         }
     }

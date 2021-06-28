@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight
+namespace OrmLight.Commands
 {
-    public abstract class BaseSorting : ISorting
+    public class Sorting : ISorting
     {
     }
 }

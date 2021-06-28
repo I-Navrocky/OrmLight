@@ -27,5 +27,11 @@ namespace OrmLight
             _conditions = conditions;
             _sortings = sortings;
         }
+
+        public void Add(T ent) => _entities.Add(ent);
+
+        public void AddCondition(ICondition con) => _conditions.Add(con);
+
+        public void AddSorting(ISorting sort) => _sortings.Add(sort);
     }
 }

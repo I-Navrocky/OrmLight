@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace OrmLight
 {
-    public abstract class BaseCondition : ICondition
+    public enum Operator
     {
+        Equal,
+        Less,
+        Greater
     }
 }
