@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OrmLight.Entities;
 
 namespace OrmLight
 {
@@ -10,10 +9,11 @@ namespace OrmLight
     {
         static void Main(string[] args)
         {
-            //
+
             var route = new RouteEntity() { Name = "Test" };
-            var com = new Command<RouteEntity>(route);
-            //
+            var dal = new DataAccesLayer();
+            var com = dal.Get<RouteEntity>();
+
             Console.ReadKey();
         }
     }
@@ -22,6 +22,6 @@ namespace OrmLight
     {
         private string _name;
 
-        public string Name { get { return _name; } set { _name = value; } }
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
     }
 }

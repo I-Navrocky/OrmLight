@@ -1,52 +1,49 @@
-﻿using OrmLight.Entities;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using OrmLight;
+using OrmLight.Linq;
 
 namespace OrmLight
 {
-    public class Command<T> where T : BaseEntity
+    public class Command : ICommandQueryable
     {
-        public Type EntityType { get; private set; }
-        private List<IEntity> _entities;
-        private List<ICondition> _conditions;
-        private List<ISorting> _sortings;
+        private Type _type;
+        private Command _command;
+        private IOrmLightQueryProvider _queryProvider;
 
-        public Command()
+        public List<IEntity> Entities;
+        public List<ICondition> Conditions;
+        public List<ISorting> Sortings;
+        Command ICommandQueryable.Command => _command;
+
+        public Command(Type type, IOrmLightQueryProvider provider)
         {
-            EntityType = typeof(T);
-            _entities = new List<IEntity>();
-            _conditions = new List<ICondition>();
-            _sortings = new List<ISorting>();
+            _type = type;
+            _queryProvider = provider;
         }
 
-        public Command(List<IEntity> entities) : this()
+        public ICommandQueryable CreateNewCommand(Command command)
         {
-            _entities = entities;
+            return new Command(_type, _queryProvider)
+            {
+                Entities = new List<IEntity>(this.Entities),
+                Conditions = new List<ICondition>(this.Conditions),
+                Sortings = new List<ISorting>(this.Sortings)
+            };
         }
 
-        public Command(IEntity entity) : this(new List<IEntity>() { entity })
+        public TResult Execute<TResult>()
         {
+            return _queryProvider.Execute<TResult>(this);
         }
 
-        public Command(List<IEntity> entities, List<ICondition> conditions = null, List<ISorting> sortings = null) : this(entities)
+        public IEnumerator GetEnumerator()
         {
-            _conditions = conditions;
-            _sortings = sortings;
-        }
-
-        public void Add(T ent) => _entities.Add(ent);
-
-        public void AddCondition(ICondition con) => _conditions.Add(con);
-
-        public void AddSorting(ISorting sort) => _sortings.Add(sort);
-
-        public Command<T> Where<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity
-        {
-            return new Command<T>();
+            yield return this;
         }
     }
 }

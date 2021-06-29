@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using OrmLight.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OrmLight
 {
-    public class DataAccesLayer
+    public class DataAccesLayer : IOrmLightQueryProvider
     {
         private List<IAdapter> _adapters;
         //TODO: событие выполнение команды?
@@ -18,14 +19,15 @@ namespace OrmLight
             
         }
 
-        public Command<T> Get<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity
+        public TResult Execute<TResult>(Command comm)
         {
-            return new Command<T>();
+            //TODO: интерпретация команды
+            throw new NotImplementedException();
         }
 
-        //public Command<TSource> Where<TSource>(Expression<Func<TSource, bool>> predicate) where TSource : BaseEntity
-        //{
-        //    return new Command<TSource>();
-        //}
+        public Command Get<T>()
+        {
+            return new Command(typeof(T), this);
+        }
     }
 }
