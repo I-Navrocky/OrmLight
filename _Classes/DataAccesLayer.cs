@@ -6,10 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using OrmLight.LinqProvider.Linq.QueryProviders;
 
 namespace OrmLight
 {
-    public class DataAccesLayer : IOrmLightQueryProvider
+    public class DataAccesLayer
     {
         private List<IAdapter> _adapters;
         //TODO: событие выполнение команды?
@@ -19,15 +20,15 @@ namespace OrmLight
             
         }
 
-        public TResult Execute<TResult>(Command comm)
+        public TResult Execute<TResult>(OrmLightCommand comm)
         {
             //TODO: интерпретация команды
             throw new NotImplementedException();
         }
 
-        public Command Get<T>()
+        public OrmLightCommand Get<T>()
         {
-            return new Command(typeof(T), this);
+            return new OrmLightCommand(typeof(T), new MySQLQueryProvider(this));
         }
     }
 }

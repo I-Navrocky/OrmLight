@@ -8,8 +8,11 @@ namespace OrmLight.Linq
 {
     public interface ICommandQueryable
     {
-
-        public Command Command { get; }
-        TResult Execute<TResult>();
+        Type EntityType { get; }
+        OrmLightCommand Command { get; }
+        IOrmLightQueryProvider Provider { get; }
+        IEnumerable<IEntity> Entities { get; set; }
+        IEnumerable<ICondition> Conditions { get; set; }
+        IEnumerable<ISorting> Sortings { get; set; }
     }
 }
