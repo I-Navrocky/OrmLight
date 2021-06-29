@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight.Entities
+namespace OrmLight
 {
     public abstract class BaseEntity : IEntity
     {
