@@ -16,7 +16,7 @@ namespace OrmLight.LinqProvider.Linq.QueryProviders
             _dal = dal;
         }    
 
-        public TResult Execute<TResult>(ICommandQueryable comm)
+        public TResult Execute<TResult>(ICommandQueryable<TResult> comm)
         {
             //TODO: в запрос
             throw new NotImplementedException();

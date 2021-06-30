@@ -20,15 +20,15 @@ namespace OrmLight
             
         }
 
-        public TResult Execute<TResult>(OrmLightCommand comm)
+        public TResult Execute<TResult>(OrmLightCommand<TResult> comm)
         {
             //TODO: интерпретация команды
             throw new NotImplementedException();
         }
 
-        public OrmLightCommand Get<T>()
+        public OrmLightCommand<T> Get<T>()
         {
-            return new OrmLightCommand(typeof(T), new MySQLQueryProvider(this));
+            return new OrmLightCommand<T>(new MySQLQueryProvider(this));
         }
     }
 }

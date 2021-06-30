@@ -9,6 +9,6 @@ namespace OrmLight.Linq
     public interface IOrmLightQueryProvider
     {
         //ICommandQueryable CreateCommand(ICommandQueryable command);
-        TResult Execute<TResult>(ICommandQueryable comm);
+        TResult Execute<TResult>(ICommandQueryable<TResult> comm);
     }
 }

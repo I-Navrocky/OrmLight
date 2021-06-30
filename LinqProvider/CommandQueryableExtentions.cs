@@ -9,7 +9,7 @@ namespace OrmLight.Linq
 {
     public static class CommandQueryableExtentions
     {
-        public static ICommandQueryable Where<TSource>(this ICommandQueryable command, Expression<Func<TSource, bool>> predicate)
+        public static ICommandQueryable<TSource> Where<TSource>(this ICommandQueryable<TSource> command, Expression<Func<TSource, bool>> predicate)
         {
             //TODO: проверка параметров
             dynamic operation = predicate.Body;
@@ -32,7 +32,7 @@ namespace OrmLight.Linq
 
             //var newConditions = new List<ICondition>(command.Conditions).Concat(condition);
        
-            return new OrmLightCommand(command.EntityType, command.Provider)
+            return new OrmLightCommand<TSource>(command.Provider)
             {
                 Conditions = command.Conditions.Append(condition).ToList()
             };

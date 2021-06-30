@@ -9,39 +9,21 @@ using OrmLight.Linq;
 
 namespace OrmLight
 {
-    public class OrmLightCommand : ICommandQueryable
+    public class OrmLightCommand<T> : ICommandQueryable<T>
     {
         public Type EntityType { get; private set; }
-        public OrmLightCommand Command { get; private set; }
         public IOrmLightQueryProvider Provider { get; }
         public IEnumerable<IEntity> Entities { get; set; }
         public IEnumerable<ICondition> Conditions { get; set; }
         public IEnumerable<ISorting> Sortings { get; set; }
 
-        public OrmLightCommand(Type type, IOrmLightQueryProvider provider)
+        public OrmLightCommand(IOrmLightQueryProvider provider)
         {
-            EntityType = type;
+            EntityType = typeof(T);
             Provider = provider;
             Entities = new List<IEntity>();
             Conditions = new List<ICondition>();
             Sortings = new List<ISorting>();
         }
-
-        //private OrmLightCommand(Type type, IOrmLightQueryProvider provider,
-        //    IEnumerable<IEntity> entities,
-        //    IEnumerable<ICondition> conditions,
-        //    IEnumerable<ISorting> sortings)
-        //    : this(type, provider)
-        //{
-        //    Entities = new List<IEntity>(entities.ToList());
-        //    Conditions = new List<ICondition>(conditions.ToList());
-        //    Sortings = new List<ISorting>(sortings.ToList());
-        //}
-
-        //public ICommandQueryable CreateNewCommand()
-        //{
-        //    return new OrmLightCommand(EntityType, Provider, Entities, Conditions, Sortings);
-        //}
-
     }
 }
