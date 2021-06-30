@@ -8,9 +8,9 @@ namespace OrmLight
 {
     public class Condition : ICondition
     {
-        public string LeftOperand;
-        public Operator Operator;
-        public object RightOperand;
+        public string LeftOperand { get; set; }
+        public Operator Operator { get; set; }
+        public object RightOperand { get; set; }
         public static Condition Equal => new Condition() { Operator = Operator.Equal };
 
     }

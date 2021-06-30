@@ -14,17 +14,7 @@ namespace OrmLight.LinqProvider.Linq.QueryProviders
         public MySQLQueryProvider(DataAccesLayer dal)
         {
             _dal = dal;
-        }
-
-        public ICommandQueryable CreateCommand(ICommandQueryable command)
-        {
-            return new OrmLightCommand(command.EntityType, command.Provider)
-            {
-                Entities = new List<IEntity>(command.Entities),
-                Conditions = new List<ICondition>(command.Conditions),
-                Sortings = new List<ISorting>(command.Sortings)
-            };
-        }
+        }    
 
         public TResult Execute<TResult>(ICommandQueryable comm)
         {

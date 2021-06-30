@@ -12,8 +12,9 @@ namespace OrmLight
         {
 
             var route = new RouteEntity() { Name = "Test" };
-            var dal = new DataAccesLayer();
+            var dal = new DataAccesLayer();        
             var com = dal.Get<RouteEntity>().Where<RouteEntity>(r => r.Id == 1);
+            var com2 = com.Where<RouteEntity>(r => r.Id == 2);
 
             Console.ReadKey();
         }

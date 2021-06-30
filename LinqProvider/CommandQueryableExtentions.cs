@@ -11,27 +11,31 @@ namespace OrmLight.Linq
     {
         public static ICommandQueryable Where<TSource>(this ICommandQueryable command, Expression<Func<TSource, bool>> predicate)
         {
-            var newCommand = command.Provider.CreateCommand(command);
-            Condition condition = null;
-            var binExp = predicate.Body as BinaryExpression;
-            var left = binExp.Left.ToString();
-            foreach (var param in predicate.Parameters)
-                left = left.Replace($"{param}.", String.Empty);
-
+            //TODO: проверка параметров
+            dynamic operation = predicate.Body;
+            var left = operation.Left;
+            var right = operation.Right;
+            ICondition condition = null;
             switch (predicate.Body.NodeType)
             {
                 case ExpressionType.Equal:
-                    condition = Condition.Equal;                    
+                    condition = Condition.Equal;
+                    condition.LeftOperand = left.Member.Name;
+                    condition.RightOperand = right.Value;
                     break;
                 default:
                     break;
             };
-            
-            condition.LeftOperand = left;
-            condition.RightOperand = binExp.Right;
-            newCommand.Conditions.ToList().Add(condition);
 
-            return newCommand;
+            if (condition == null)
+                throw new NotImplementedException($"operation type [${predicate.Body.NodeType}] not supported");
+
+            //var newConditions = new List<ICondition>(command.Conditions).Concat(condition);
+       
+            return new OrmLightCommand(command.EntityType, command.Provider)
+            {
+                Conditions = command.Conditions.Append(condition).ToList()
+            };
         }
     }
 }

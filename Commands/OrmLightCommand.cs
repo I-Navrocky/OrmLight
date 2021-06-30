@@ -27,5 +27,21 @@ namespace OrmLight
             Sortings = new List<ISorting>();
         }
 
+        //private OrmLightCommand(Type type, IOrmLightQueryProvider provider,
+        //    IEnumerable<IEntity> entities,
+        //    IEnumerable<ICondition> conditions,
+        //    IEnumerable<ISorting> sortings)
+        //    : this(type, provider)
+        //{
+        //    Entities = new List<IEntity>(entities.ToList());
+        //    Conditions = new List<ICondition>(conditions.ToList());
+        //    Sortings = new List<ISorting>(sortings.ToList());
+        //}
+
+        //public ICommandQueryable CreateNewCommand()
+        //{
+        //    return new OrmLightCommand(EntityType, Provider, Entities, Conditions, Sortings);
+        //}
+
     }
 }
