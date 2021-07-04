@@ -9,7 +9,7 @@ namespace OrmLight.Linq
     public interface ICommandQueryable<T>
     {
         Type EntityType { get; }
-        IOrmLightQueryProvider Provider { get; }
+        //IOrmLightQueryProvider Provider { get; }
         IEnumerable<IEntity> Entities { get; set; }
         IEnumerable<ICondition> Conditions { get; set; }
         IEnumerable<ISorting> Sortings { get; set; }

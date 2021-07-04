@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Linq
 {
-    public interface IOrmLightQueryProvider
-    {
-        //ICommandQueryable CreateCommand(ICommandQueryable command);
-        TResult Execute<TResult>(ICommandQueryable<TResult> comm);
-    }
+    //public interface IOrmLightQueryProvider
+    //{
+    //    //ICommandQueryable CreateCommand(ICommandQueryable command);
+    //    TResult Execute<TResult>(ICommandQueryable<TResult> comm);
+    //}
 }

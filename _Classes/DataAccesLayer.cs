@@ -13,22 +13,25 @@ namespace OrmLight
     public class DataAccesLayer
     {
         private List<IAdapter> _adapters;
+        private IQueryProvider _queryProvider;
+
         //TODO: событие выполнение команды?
 
         public DataAccesLayer()
         {
-            
+            _queryProvider = new MySQLQueryProvider(this);
         }
 
-        public TResult Execute<TResult>(OrmLightCommand<TResult> comm)
+        public TResult Execute<TResult>(Query<TResult> comm)
         {
             //TODO: интерпретация команды
             throw new NotImplementedException();
         }
 
-        public OrmLightCommand<T> Get<T>()
+        public IQueryable<T> Get<T>()
         {
-            return new OrmLightCommand<T>(new MySQLQueryProvider(this));
+            //return _queryProvider.CreateQuery<T>(Expression.Constant(null, typeof(T)));
+            return new Query<T>(_queryProvider, Expression.Constant(new List<T>()));
         }
     }
 }
