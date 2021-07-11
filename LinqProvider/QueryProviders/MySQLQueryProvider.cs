@@ -27,7 +27,7 @@ namespace OrmLight.LinqProvider.Linq.QueryProviders
             return new Query<TElement>(this, expression);
         }
 
-        public TResult Execute<TResult>(ICommandQueryable<TResult> comm)
+        public TResult Execute<TResult>(IQuery<TResult> comm)
         {
             //TODO: в запрос
             throw new NotImplementedException();

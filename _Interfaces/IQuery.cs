@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight.Linq
+namespace OrmLight
 {
-    public interface ICommandQueryable<T>
+    public interface IQuery<T> : IQueryable<T>
     {
-        Type EntityType { get; }
-        //IOrmLightQueryProvider Provider { get; }
         IEnumerable<IEntity> Entities { get; set; }
         IEnumerable<ICondition> Conditions { get; set; }
         IEnumerable<ISorting> Sortings { get; set; }

@@ -28,7 +28,7 @@ namespace OrmLight
             throw new NotImplementedException();
         }
 
-        public IQueryable<T> Get<T>()
+        public IQuery<T> Get<T>()
         {
             //return _queryProvider.CreateQuery<T>(Expression.Constant(null, typeof(T)));
             return new Query<T>(_queryProvider, Expression.Constant(new List<T>()));

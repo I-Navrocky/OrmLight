@@ -10,34 +10,24 @@ using OrmLight.Linq;
 
 namespace OrmLight
 {
-    public class Query<T> : IQueryable<T>
+    public class Query<T> : IQuery<T>
     {
         public Type ElementType => typeof(T);
         public Expression Expression { get; private set; }
-
         public IQueryProvider Provider { get; private set; }
+        public IEnumerable<IEntity> Entities { get; set; }
+        public IEnumerable<ICondition> Conditions { get; set; }
+        public IEnumerable<ISorting> Sortings { get; set; }
 
         public Query(IQueryProvider provider, Expression expression)
         {
             Provider = provider;
             Expression = expression;
+            Entities = new List<IEntity>();
+            Conditions = new List<ICondition>();
+            Sortings = new List<ISorting>();
         }
-        //public Type EntityType { get; private set; }
-        //public IOrmLightQueryProvider Provider { get; }
-        //public IEnumerable<IEntity> Entities { get; set; }
-        //public IEnumerable<ICondition> Conditions { get; set; }
-        //public IEnumerable<ISorting> Sortings { get; set; }
-
-        //public OrmLightCommand(IQueryProvider provider)
-        //{
-        //    EntityType = typeof(T);
-        //    Provider = provider;
-        //    Entities = new List<IEntity>();
-        //    Conditions = new List<ICondition>();
-        //    Sortings = new List<ISorting>();
-        //}
-        
-
+       
         public IEnumerator<T> GetEnumerator()
         {
             throw new NotImplementedException();
