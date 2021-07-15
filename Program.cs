@@ -16,6 +16,7 @@ namespace OrmLight
             var dal = new DataAccesLayer();
             var com = dal.Get<RouteEntity>().Where(r => r.Id == 1);
             var com2 = com.Where(r => r.Id == 2);
+            var com3 = dal.Get<RouteEntity>().Where(r => r.Id == 1 || r.Id == 2 || r.Id == 3);
 
             Console.ReadKey();
         }
