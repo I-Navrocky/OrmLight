@@ -8,21 +8,25 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Context
 {
-    public class Query<T> : IQueryable<T>
+    public class Query<T> : IQueryable<T>, IQueryable
     {
+        private Expression _Expression;
+        private IQueryProvider _Provider;
+
         public Type ElementType => typeof(T);
 
-        public Expression Expression { get; private set; }
+        public Expression Expression => _Expression;
 
-        public IQueryProvider Provider { get; private set; }
+        public IQueryProvider Provider => _Provider;
 
         public IEnumerable<IEntity> Entities { get; set; }
         public IEnumerable<ICondition> Conditions { get; set; }
         public IEnumerable<ISorting> Sortings { get; set; }
 
-        public Query(IQueryProvider provider)
+        public Query(IQueryProvider provider, Expression expresion)
         {
-            Provider = provider;
+            _Provider = provider;
+            _Expression = expresion;
             Entities = new List<IEntity>();
             Conditions = new List<ICondition>();
             Sortings = new List<ISorting>();
@@ -30,12 +34,12 @@ namespace OrmLight.Context
 
         public IEnumerator<T> GetEnumerator()
         {
-            return (this as IQueryable).Provider.Execute<IEnumerator<T>>(Expression);
+            return (this as IQueryable).Provider.Execute<IEnumerator<T>>(_Expression);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (this as IQueryable).Provider.Execute<IEnumerator>(Expression);
+            return (this as IQueryable).Provider.Execute<IEnumerator>(_Expression);
         }
     }
 }

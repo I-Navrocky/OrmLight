@@ -18,9 +18,20 @@ namespace OrmLight
             //var com = dal.Get<RouteEntity>().Where(r => r.Id == 1);
             //var com2 = com.Where(r => r.Id == 2);
 
-            var com1 = new DalContext<RouteEntity>().Where(r => r.Id == 1).ToList();
+            try
+            {
+                var dal = new DalContext();
 
-            Console.ReadKey();
+                var com1 = dal.Get<RouteEntity>().ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.ReadKey();
+            }            
         }
     }
 
