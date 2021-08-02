@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Context
 {
-    public class Query<T> : IQueryable<T>, IQueryable
+    public class Query<T> : IQueryable<T>, IEnumerator<T>
     {
         private Expression _Expression;
         private IQueryProvider _Provider;
@@ -23,6 +23,10 @@ namespace OrmLight.Context
         public IEnumerable<ICondition> Conditions { get; set; }
         public IEnumerable<ISorting> Sortings { get; set; }
 
+        public object Current => throw new NotImplementedException();
+
+        T IEnumerator<T>.Current => throw new NotImplementedException();
+
         public Query(IQueryProvider provider, Expression expresion)
         {
             _Provider = provider;
@@ -34,12 +38,28 @@ namespace OrmLight.Context
 
         public IEnumerator<T> GetEnumerator()
         {
-            return (this as IQueryable).Provider.Execute<IEnumerator<T>>(_Expression);
+            return this;
+            //var list = new List<T>();
+            //return list.GetEnumerator();
+            //return Provider.Execute<IEnumerator<T>>(_Expression);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return (this as IQueryable).Provider.Execute<IEnumerator>(_Expression);
+        }
+
+        public bool MoveNext()
+        {
+            return false;
+        }
+
+        public void Reset()
+        {
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

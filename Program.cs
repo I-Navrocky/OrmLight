@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 //using OrmLight.Linq;
 using System.Linq;
 using OrmLight.Context;
+using System.Collections.Generic;
 
 namespace OrmLight
 {
@@ -18,11 +19,14 @@ namespace OrmLight
             //var com = dal.Get<RouteEntity>().Where(r => r.Id == 1);
             //var com2 = com.Where(r => r.Id == 2);
 
+            //IEnumerable<RouteEntity> testList = new List<RouteEntity>();
+            //testList.Where
+
             try
             {
-                var dal = new DalContext();
-
-                var com1 = dal.Get<RouteEntity>().ToList();
+                var dal = new TestDataAccesLayer();
+                var list = dal.Get<RouteEntity>()
+                    .Where(r => r.Id == 1).ToList();
             }
             catch (Exception ex)
             {

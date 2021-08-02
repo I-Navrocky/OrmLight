@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Context
 {
-    public class DalContext : IQueryProvider
+    public abstract class DalContext : IQueryProvider
     {
         //public Type ElementType => typeof(T);
         //public Expression Expression => Expression.Constant(this);
         //public IQueryProvider Provider => this;        
 
-        public IQueryable<T> Get<T>()
+        public IEnumerable<T> Get<T>()
         {
-            return new Query<T>(this, Expression.Constant(new List<T>()));
+            return new Query<T>(this, Expression.Constant(new List<T>())).AsEnumerable();
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -35,9 +35,6 @@ namespace OrmLight.Context
             throw new NotImplementedException();
         }
 
-        public TResult Execute<TResult>(Expression expression)
-        {
-            throw new NotImplementedException();
-        }        
+        public abstract TResult Execute<TResult>(Expression expression);
     }
 }
