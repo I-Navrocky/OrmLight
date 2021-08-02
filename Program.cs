@@ -15,7 +15,7 @@ namespace OrmLight
             var dal = new TestDataAccesLayer();
 
             //var stringList = dal.GetString().Where(n => n.Equals("John")).ToList();
-            var routeList = dal.Get<RouteEntity>().Where(r => r.Id == 2).ToList();
+            var routeList = dal.Get<RouteEntity>().Where(r => r.Id == 2).OrderBy(r => r.Id).ToList();
 
             Console.ReadKey();
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrmLight.Custom
 {
-    public class QueryableData<TEntity> : IQueryable<TEntity>
+    public class QueryableData<TEntity> : IOrderedQueryable<TEntity>
     {
         private TestDataAccesLayer _DAL;
         private IQueryProvider _Provider;
