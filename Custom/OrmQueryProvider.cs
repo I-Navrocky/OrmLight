@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrmLight.Custom.Parsing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -44,10 +45,11 @@ namespace OrmLight.Custom
 
         public TResult Execute<TResult>(Expression expression)
         {
-            // here
-            var query = new Query();
-            var result = _DAL.Execute<RouteEntity>(query);
-            return (TResult)result;
+            TResult result = default(TResult);
+            if (!ExpressionParser.Parse(expression, out Query query))
+                result = (TResult)_DAL.Execute<RouteEntity>(query);
+
+            return result;
         }
     }
 }
