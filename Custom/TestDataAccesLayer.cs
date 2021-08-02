@@ -13,9 +13,20 @@ namespace OrmLight.Custom
             "Ivan","John","Jack","Mary","Lisa"
         };
 
-        public QueryableData<string> Get()
+        public QueryableData<string> GetString()
         {
-            return new QueryableData<String>();
+            return new QueryableData<String>(this);
         }
+
+        public QueryableData<TEntity> Get<TEntity>()
+        {
+            return new QueryableData<TEntity>(this);
+        }
+
+        public IEnumerable<TEntity> Execute<TEntity>(Query query)
+        {
+            return new List<TEntity>();
+        }
+
     }
 }

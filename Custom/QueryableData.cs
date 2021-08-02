@@ -10,6 +10,7 @@ namespace OrmLight.Custom
 {
     public class QueryableData<TEntity> : IQueryable<TEntity>
     {
+        private TestDataAccesLayer _DAL;
         private IQueryProvider _Provider;
         private Expression _Expression;
 
@@ -19,13 +20,14 @@ namespace OrmLight.Custom
 
         public IQueryProvider Provider => _Provider;
 
-        public QueryableData()
+        public QueryableData(TestDataAccesLayer dal)
         {
-            _Provider = new OrmQueryProvider();
+            _DAL = dal;
+            _Provider = new OrmQueryProvider(dal);
             _Expression = Expression.Constant(this);
         }
 
-        public QueryableData(IQueryProvider provider, Expression expression)
+        public QueryableData(TestDataAccesLayer dal, IQueryProvider provider, Expression expression)
         {
             if (provider == null)
                 throw new ArgumentNullException("provider");
@@ -36,6 +38,7 @@ namespace OrmLight.Custom
             if (!typeof(IQueryable<TEntity>).IsAssignableFrom(expression.Type))
                 throw new ArgumentOutOfRangeException("expression");
 
+            _DAL = dal;
             _Provider = provider;
             _Expression = expression;
         }

@@ -12,21 +12,16 @@ namespace OrmLight
     {
         static void Main(string[] args)
         {
-
-            //var route = new RouteEntity() { Name = "Test" };
-            //var dal = new DataAccesLayer();        
-            //var com = dal.Get<RouteEntity>().Where(r => r.Id == 1);
-            //var com2 = com.Where(r => r.Id == 2);
-
             var dal = new TestDataAccesLayer();
 
-            var list = dal.Get().Where(n => n.Equals("John")).ToList();
+            //var stringList = dal.GetString().Where(n => n.Equals("John")).ToList();
+            var routeList = dal.Get<RouteEntity>().Where(r => r.Id == 2).ToList();
 
             Console.ReadKey();
         }
     }
 
-    class RouteEntity : BaseEntity
+    public class RouteEntity : BaseEntity
     {
         private long _id;
         private string _name;

@@ -9,6 +9,13 @@ namespace OrmLight.Custom
 {
     public class OrmQueryProvider : IQueryProvider
     {
+        private TestDataAccesLayer _DAL;
+
+        public OrmQueryProvider(TestDataAccesLayer dal)
+        {
+            _DAL = dal;
+        }
+
         public IQueryable CreateQuery(Expression expression)
         {
             Type elementType = TypeSystem.GetElementType(expression.Type);
@@ -27,7 +34,7 @@ namespace OrmLight.Custom
 
         public IQueryable<TResult> CreateQuery<TResult>(Expression expression)
         {
-            return new QueryableData<TResult>(this, expression);
+            return new QueryableData<TResult>(_DAL, this, expression);
         }
 
         public object Execute(Expression expression)
@@ -37,7 +44,10 @@ namespace OrmLight.Custom
 
         public TResult Execute<TResult>(Expression expression)
         {
-            throw new NotImplementedException();
+            // here
+            var query = new Query();
+            var result = _DAL.Execute<RouteEntity>(query);
+            return (TResult)result;
         }
     }
 }
