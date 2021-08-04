@@ -9,9 +9,21 @@ namespace OrmLight.Custom.Parsing
 {
     public static class ExpressionParser
     {
-        public static bool Parse(Expression exp, out Query query)
+        public static bool TryParse(Expression expression, out Query query)
         {
             query = new Query();
+            bool result = false;
+
+            //Visitor visitor = new Visitor();
+            //visitor.Visit(expression);
+
+           
+
+            return true;
+        }
+
+        private static bool ParseArgument(Expression expression, Query query)
+        {
             return true;
         }
     }
