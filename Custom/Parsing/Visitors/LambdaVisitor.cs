@@ -15,14 +15,21 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(string prefix)
+        public override void Visit(Query query)
         {
-            foreach(var argumentExpression in _Node.Parameters)
+            var body = (BinaryExpression)_Node.Body;
+            var left = body.Left;
+
+            switch (body.NodeType)
             {
-                var argumentVisitor = Visitor.CreateFromExpression(argumentExpression);
-                prefix = prefix + "-Lambda-";
-                argumentVisitor.Visit(prefix);
+                
             }
+
+            //foreach(var argumentExpression in _Node.Parameters)
+            //{
+            //    var argumentVisitor = Visitor.CreateFromExpression(argumentExpression);
+            //    argumentVisitor.Visit(query);
+            //}
         }
     }
 }

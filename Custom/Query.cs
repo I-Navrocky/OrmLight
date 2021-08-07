@@ -8,5 +8,8 @@ namespace OrmLight.Custom
 {
     public class Query
     {
+        public Type EntityType { get; set; }
+        public IEnumerable<ICondition> Conditions { get; set; }
+        public IEnumerable<ISorting> Sortings { get; set; }
     }
 }

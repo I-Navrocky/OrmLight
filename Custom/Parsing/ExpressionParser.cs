@@ -13,13 +13,8 @@ namespace OrmLight.Custom.Parsing
         public static bool TryParse(Expression expression, out Query query)
         {
             query = new Query();
-            bool result = false;
-
-            string prefix = String.Empty;
-            //Visitor visitor = new Visitor();
-            //visitor.Visit(expression);
             var visitor = Visitor.CreateFromExpression(expression);
-            visitor.Visit(prefix);
+            visitor.Visit(query);
            
 
             return true;

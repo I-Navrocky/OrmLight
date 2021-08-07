@@ -15,9 +15,9 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(string prefix)
+        public override void Visit(Query query)
         {
-            prefix = prefix + "-Parameter-";
+            //3
         }
     }
 }

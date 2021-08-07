@@ -15,10 +15,17 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(string prefix)
+        public override void Visit(Query query)
         {
-            var entityType = _Node.Value.GetType().GenericTypeArguments[0];
-            prefix = prefix + "-Constant-";
+            if (query.EntityType == null)
+            {
+                var entityType = _Node.Value.GetType().GenericTypeArguments?.FirstOrDefault();
+
+                if (entityType == null)
+                    throw new ApplicationException("entity type");
+
+                query.EntityType = entityType;
+            }
         }
     }
 }

@@ -15,11 +15,12 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(string prefix)
+        public override void Visit(Query query)
         {
-            prefix = prefix + "-Unary-";
+            //2
+            //prefix = prefix + "-Unary-";
             var bodyVisitor = Visitor.CreateFromExpression(_Node.Operand);
-            bodyVisitor.Visit(prefix);
+            bodyVisitor.Visit(query);
         }
     }
 }
