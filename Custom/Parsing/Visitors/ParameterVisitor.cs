@@ -15,9 +15,8 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query)
+        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
         {
-            //3
         }
     }
 }

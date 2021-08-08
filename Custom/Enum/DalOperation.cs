@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight
+namespace OrmLight.Custom
 {
-    public enum Operator
+    public enum DalOperation
     {
-        Equal,
-        Less,
-        Greater,
-        Unknown
+        Select, Input, Update, Delete
     }
 }

@@ -15,12 +15,12 @@ namespace OrmLight.Custom
 
         public QueryableData<string> GetString()
         {
-            return new QueryableData<String>(this);
+            return new QueryableData<String>(this, DalOperation.Select);
         }
 
         public QueryableData<TEntity> Get<TEntity>()
         {
-            return new QueryableData<TEntity>(this);
+            return new QueryableData<TEntity>(this, DalOperation.Select);
         }
 
         public IEnumerable<TEntity> Execute<TEntity>(Query query)

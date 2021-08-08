@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace OrmLight.Custom
 {
     public class QueryableData<TEntity> : IOrderedQueryable<TEntity>
-    {
+    {        
         private TestDataAccesLayer _DAL;
         private IQueryProvider _Provider;
         private Expression _Expression;
@@ -20,10 +20,10 @@ namespace OrmLight.Custom
 
         public IQueryProvider Provider => _Provider;
 
-        public QueryableData(TestDataAccesLayer dal)
+        public QueryableData(TestDataAccesLayer dal, DalOperation operation)
         {
             _DAL = dal;
-            _Provider = new OrmQueryProvider(dal);
+            _Provider = new OrmQueryProvider(dal, operation);
             _Expression = Expression.Constant(this);
         }
 

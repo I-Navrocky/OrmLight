@@ -15,21 +15,33 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query)
+        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
         {
+            string method = visitorInfo.ContainsKey("method") ? visitorInfo["method"].ToString() : String.Empty;
             var body = (BinaryExpression)_Node.Body;
-            var left = body.Left;
 
             switch (body.NodeType)
             {
-                
+                case ExpressionType.Equal:                    
+                    query.Conditions.Add(CreateSimpleCondition(body));
+                    break;
+                case ExpressionType.OrElse:
+                default:
+                    break;
             }
+        }
 
-            //foreach(var argumentExpression in _Node.Parameters)
-            //{
-            //    var argumentVisitor = Visitor.CreateFromExpression(argumentExpression);
-            //    argumentVisitor.Visit(query);
-            //}
+        private Condition CreateSimpleCondition(BinaryExpression exp)
+        {
+            var op = Condition.GetOperator(exp.NodeType);
+            var left = (MemberExpression)exp.Left;
+            var right = (ConstantExpression)exp.Right;
+            return new Condition() 
+            { 
+                LeftOperand = left.Member.Name, 
+                Operator = op, 
+                RightOperand = right.Value 
+            };
         }
     }
 }

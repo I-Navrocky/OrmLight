@@ -16,16 +16,15 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query)
+        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
         {
-            var method = _Node.Method.Name;
+            visitorInfo = visitorInfo ?? new Dictionary<string, object>();
+            visitorInfo?.Add("method", _Node.Method?.Name);
 
             foreach (var arg in _Node.Arguments)
             {               
-                //1
                 var argVisitor = Visitor.CreateFromExpression(arg);
-                //prefix = prefix + "-MethodCall-";
-                argVisitor.Visit(query);
+                argVisitor.Visit(query, visitorInfo);
             }
         }
     }

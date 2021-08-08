@@ -11,10 +11,12 @@ namespace OrmLight.Custom
     public class OrmQueryProvider : IQueryProvider
     {
         private TestDataAccesLayer _DAL;
+        private DalOperation _Operation;
 
-        public OrmQueryProvider(TestDataAccesLayer dal)
+        public OrmQueryProvider(TestDataAccesLayer dal, DalOperation operation)
         {
             _DAL = dal;
+            _Operation = operation;
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -46,7 +48,7 @@ namespace OrmLight.Custom
         public TResult Execute<TResult>(Expression expression)
         {
             TResult result = default(TResult);
-            if (!ExpressionParser.TryParse(expression, out Query query))
+            if (!ExpressionParser.TryParse(expression, _Operation,  out Query query))
                 result = (TResult)_DAL.Execute<RouteEntity>(query);
 
             return result;

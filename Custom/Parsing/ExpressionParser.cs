@@ -9,14 +9,13 @@ using OrmLight.Custom.Parsing.Visitors;
 namespace OrmLight.Custom.Parsing
 {
     public static class ExpressionParser
-    {
-        public static bool TryParse(Expression expression, out Query query)
+    {        
+        public static bool TryParse(Expression expression, DalOperation operation, out Query query)
         {
-            query = new Query();
+            query = new Query() { Operation = operation };
             var visitor = Visitor.CreateFromExpression(expression);
-            visitor.Visit(query);
-           
-
+            visitor.Visit(query, new Dictionary<string, object>());
+          
             return true;
         }
 

@@ -15,11 +15,13 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query)
+        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
         {
+            Type entityType = null;
+
             if (query.EntityType == null)
             {
-                var entityType = _Node.Value.GetType().GenericTypeArguments?.FirstOrDefault();
+                entityType = _Node.Value.GetType().GenericTypeArguments?.FirstOrDefault();
 
                 if (entityType == null)
                     throw new ApplicationException("entity type");
