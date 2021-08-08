@@ -17,31 +17,47 @@ namespace OrmLight.Custom.Parsing.Visitors
 
         public override void Visit(Query query, Dictionary<string, object> visitorInfo)
         {
-            string method = visitorInfo.ContainsKey("method") ? visitorInfo["method"].ToString() : String.Empty;
+            //string method = visitorInfo.ContainsKey("method") ? visitorInfo["method"].ToString() : String.Empty;
             var body = (BinaryExpression)_Node.Body;
+            Condition condition = CreateCondition((BinaryExpression)_Node.Body);
 
-            switch (body.NodeType)
-            {
-                case ExpressionType.Equal:                    
-                    query.Conditions.Add(CreateSimpleCondition(body));
-                    break;
-                case ExpressionType.OrElse:
-                default:
-                    break;
-            }
+            if (condition != null)
+                query.Conditions.Add(condition);
         }
 
-        private Condition CreateSimpleCondition(BinaryExpression exp)
+        private Condition CreateCondition(BinaryExpression exp)
         {
+            Condition condition = null;
             var op = Condition.GetOperator(exp.NodeType);
-            var left = (MemberExpression)exp.Left;
-            var right = (ConstantExpression)exp.Right;
-            return new Condition() 
-            { 
-                LeftOperand = left.Member.Name, 
-                Operator = op, 
-                RightOperand = right.Value 
-            };
+
+            switch (exp.NodeType)
+            {
+                case ExpressionType.Equal:
+                case ExpressionType.GreaterThan:                    
+                    var left = (MemberExpression)exp.Left;
+                    var right = (ConstantExpression)exp.Right;
+                    condition = new Condition()
+                    {
+                        LeftOperand = left.Member.Name,
+                        Operator = op,
+                        RightOperand = right.Value
+                    };
+                    break;
+                case ExpressionType.OrElse:
+                    Condition leftCond = CreateCondition((BinaryExpression)exp.Left);
+                    Condition rightCond = CreateCondition((BinaryExpression)exp.Right);
+                    condition = new Condition()
+                    {
+                        LeftOperand = leftCond,
+                        Operator = op,
+                        RightOperand = rightCond
+                    };
+                    break;
+                default:
+                    throw new NotImplementedException($"unknown expression type [{exp.NodeType}]");
+            }
+
+            return condition;
         }
     }
 }

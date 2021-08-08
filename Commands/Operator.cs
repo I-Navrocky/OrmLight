@@ -9,6 +9,8 @@ namespace OrmLight
     public enum Operator
     {
         Equal,
+        Or,
+        And,
         Less,
         Greater,
         Unknown
