@@ -48,7 +48,7 @@ namespace OrmLight.Custom
         public TResult Execute<TResult>(Expression expression)
         {
             TResult result = default(TResult);
-            if (!ExpressionParser.TryParse(expression, _Operation,  out Query query))
+            if (ExpressionParser.TryParse(expression, _Operation,  out Query query))
                 result = (TResult)_DAL.Execute<RouteEntity>(query);
 
             return result;

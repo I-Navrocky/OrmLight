@@ -33,12 +33,14 @@ namespace OrmLight.Custom.Parsing.Visitors
 
         private Condition CreateCondition(MethodCallExpression exp)
         {
-            Condition condition = null;
             var methodName = exp.Method.Name;
             var allMethods = exp.Method.DeclaringType.GetMethods();
             var method = allMethods.Where(m => m.Name.Equals(methodName)).FirstOrDefault();
-            //var method = exp.Method.DeclaringType.GetMethod(exp.Method.Name, BindingFlags.Public | BindingFlags.Static);
-            throw new NotImplementedException();
+
+            if (methodName.Equals("Equals") && method.DeclaringType.Name.Equals("String"))            
+                return CreateCondition(BinaryExpression.Equal(exp.Object, exp.Arguments.FirstOrDefault()));
+            
+            throw new NotImplementedException($"this call method is not suported [{exp.NodeType}]");
         }
 
         private Condition CreateCondition(BinaryExpression exp)
@@ -74,11 +76,6 @@ namespace OrmLight.Custom.Parsing.Visitors
                         };
                         break;
                     }
-                //case ExpressionType.Call:
-                //    {
-                //        //var method = typeof(exp);
-                //        break;
-                //    }
                 default:
                     throw new NotImplementedException($"unknown expression type [{exp.NodeType}]");
             }
