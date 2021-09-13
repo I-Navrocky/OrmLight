@@ -8,5 +8,6 @@ namespace OrmLight.Commands
 {
     public class Sorting : ISorting
     {
+        //TODO: сортировка включает bool переключатель и может быть составной
     }
 }
