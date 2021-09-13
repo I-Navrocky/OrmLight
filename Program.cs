@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OrmLight.Linq;
+//using OrmLight.Linq;
+using OrmLight.Custom;
+using System.Linq;
 
 namespace OrmLight
 {
@@ -10,17 +12,17 @@ namespace OrmLight
     {
         static void Main(string[] args)
         {
+            var dal = new TestDataAccesLayer();
 
-            var route = new RouteEntity() { Name = "Test" };
-            var dal = new DataAccesLayer();        
-            var com = dal.Get<RouteEntity>().Where(r => r.Id == 1);
-            var com2 = com.Where(r => r.Id == 2);
+            //var stringList = dal.GetString().Where(n => n.Equals("John")).ToList();
+            //var routeList = dal.Get<RouteEntity>().Where(r => r.Id == 1 || r.Id == 2 || r.Id == 3).ToList();
+            var routeList = dal.Get<RouteEntity>().Where(r => r.Name.Equals("John")).ToList();
 
             Console.ReadKey();
         }
     }
 
-    class RouteEntity : BaseEntity
+    public class RouteEntity : BaseEntity
     {
         private long _id;
         private string _name;

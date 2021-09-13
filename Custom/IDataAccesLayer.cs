@@ -4,15 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight
+namespace OrmLight.Custom
 {
-    public enum Operator
+    public interface IDataAccesLayer
     {
-        Equal,
-        Or,
-        And,
-        Less,
-        Greater,
-        Unknown
     }
 }

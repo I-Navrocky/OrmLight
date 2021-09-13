@@ -8,7 +8,7 @@ namespace OrmLight
 {
     public interface ICondition
     {
-        string LeftOperand { get; set; }
+        object LeftOperand { get; set; }
         Operator Operator { get; set; }
         object RightOperand { get; set; }
     }
