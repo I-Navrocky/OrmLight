@@ -15,7 +15,7 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
+        public override void Visit(Query query, string methodName)
         {
             Type entityType = null;
 

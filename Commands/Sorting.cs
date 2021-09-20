@@ -8,5 +8,7 @@ namespace OrmLight.Commands
 {
     public class Sorting : ISorting
     {
+        public string FieldName;
+        public bool IsDesc;
     }
 }

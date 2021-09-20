@@ -18,7 +18,7 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public abstract void Visit(Query query, Dictionary<string, object> visitorInfo);
+        public abstract void Visit(Query query, string methodName);
 
         public static Visitor CreateFromExpression(Expression node)
         {
