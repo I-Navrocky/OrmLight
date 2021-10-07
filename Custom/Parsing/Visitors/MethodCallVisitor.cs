@@ -23,7 +23,7 @@ namespace OrmLight.Custom.Parsing.Visitors
             foreach (var arg in _Node.Arguments)
             {               
                 var argVisitor = Visitor.CreateFromExpression(arg);
-                argVisitor.Visit(query, _Node.Method?.Name);
+                argVisitor.Visit(query, methodName);
             }
         }
     }

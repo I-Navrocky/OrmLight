@@ -28,6 +28,16 @@ namespace OrmLight.Custom.Parsing.Visitors
 
                 query.EntityType = entityType;
             }
+
+            if (methodName.Equals("Take"))
+            {
+                query.Limits.Add(new Limit() { Count = (int)_Node.Value });
+            }
+
+            if (methodName.Equals("Skip"))
+            {
+                query.Limits.Add(new Limit() { Offset = (int)_Node.Value });
+            }
         }
     }
 }
