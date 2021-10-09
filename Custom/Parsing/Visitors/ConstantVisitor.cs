@@ -15,7 +15,7 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
+        public override void Visit(Query query, string methodName)
         {
             Type entityType = null;
 
@@ -27,6 +27,16 @@ namespace OrmLight.Custom.Parsing.Visitors
                     throw new ApplicationException("entity type");
 
                 query.EntityType = entityType;
+            }
+
+            if (methodName.Equals("Take"))
+            {
+                query.Limits.Add(new Limit() { Count = (int)_Node.Value });
+            }
+
+            if (methodName.Equals("Skip"))
+            {
+                query.Limits.Add(new Limit() { Offset = (int)_Node.Value });
             }
         }
     }

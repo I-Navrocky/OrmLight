@@ -13,11 +13,13 @@ namespace OrmLight.Custom
         public Type EntityType { get; set; }
         public List<ICondition> Conditions { get; set; }
         public List<ISorting> Sortings { get; set; }
+        public List<ILimit> Limits { get; set; }
 
         public Query()
         {
             Conditions = new List<ICondition>();
             Sortings = new List<ISorting>();
+            Limits = new List<ILimit>();
         }
     }
 }

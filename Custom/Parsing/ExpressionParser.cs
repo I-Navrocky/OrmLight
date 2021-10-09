@@ -14,7 +14,7 @@ namespace OrmLight.Custom.Parsing
         {
             query = new Query() { Operation = operation };
             var visitor = Visitor.CreateFromExpression(expression);
-            visitor.Visit(query, new Dictionary<string, object>());
+            visitor.Visit(query, null);
           
             return true;
         }

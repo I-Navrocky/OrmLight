@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrmLight.Commands
+namespace OrmLight
 {
-    public class Sorting : ISorting
+    public interface ILimit
     {
-        public string FieldName;
-        public bool IsDesc;
+        public int Count { get; set; }
+        public int Offset { get; set; }
     }
 }

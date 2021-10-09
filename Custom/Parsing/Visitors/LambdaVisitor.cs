@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrmLight.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,19 +17,69 @@ namespace OrmLight.Custom.Parsing.Visitors
             _Node = node;
         }
 
-        public override void Visit(Query query, Dictionary<string, object> visitorInfo)
+        public override void Visit(Query query, string methodName)
         {
-            //string method = visitorInfo.ContainsKey("method") ? visitorInfo["method"].ToString() : String.Empty;
-            Condition condition = null;
+            methodName = methodName ?? String.Empty;
 
-            if (_Node.Body is BinaryExpression)
-                condition = CreateCondition((BinaryExpression)_Node.Body);
+            if (methodName.Equals("Where"))
+            {
+                Condition condition = null;
+                if (_Node.Body is BinaryExpression)
+                    condition = CreateCondition((BinaryExpression)_Node.Body);
 
-            if (_Node.Body is MethodCallExpression)
-                condition = CreateCondition((MethodCallExpression)_Node.Body);
+                if (_Node.Body is MethodCallExpression)
+                    condition = CreateCondition((MethodCallExpression)_Node.Body);
 
-            if (condition != null)
-                query.Conditions.Add(condition);
+                if (condition != null)
+                    query.Conditions.Add(condition);
+
+                return;
+            }
+
+            if (methodName.Equals("OrderBy"))
+            {
+                Sorting sorting = null;
+                if (_Node.Body is MemberExpression)
+                    sorting = CreateSorting((MemberExpression)_Node.Body, false);
+
+                if (sorting != null)
+                    query.Sortings.Add(sorting);
+
+                return;
+            }
+
+            if (methodName.Equals("OrderByDescending"))
+            {
+                Sorting sorting = null;
+                if (_Node.Body is MemberExpression)
+                    sorting = CreateSorting((MemberExpression)_Node.Body, true);
+
+                if (sorting != null)
+                    query.Sortings.Add(sorting);
+
+                return;
+            }
+        }
+
+        private Sorting CreateSorting(MemberExpression exp, bool isDesc)
+        {
+            Sorting sorting = null;
+            switch (exp.NodeType)
+            {
+                case ExpressionType.MemberAccess:
+                    {
+                        sorting = new Sorting() 
+                        { 
+                            FieldName = exp.Member.Name,
+                            IsDesc = isDesc
+                        };
+                        break;
+                    }
+                default:
+                    throw new NotImplementedException($"unknown expression type [{exp.NodeType}]");
+            }
+
+            return sorting;
         }
 
         private Condition CreateCondition(MethodCallExpression exp)
