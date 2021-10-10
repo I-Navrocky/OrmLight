@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmLight", "OrmLight.csproj", "{F6C97D3F-7E65-4653-9609-479BA8F9A5A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrmLightTest", "OrmLightTest.csproj", "{F6C97D3F-7E65-4653-9609-479BA8F9A5A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrmLight", "..\OrmLightLibrary\OrmLight.csproj", "{D7CB156B-73F3-4E5B-83A5-D82285CFD69D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F6C97D3F-7E65-4653-9609-479BA8F9A5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6C97D3F-7E65-4653-9609-479BA8F9A5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6C97D3F-7E65-4653-9609-479BA8F9A5A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CB156B-73F3-4E5B-83A5-D82285CFD69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CB156B-73F3-4E5B-83A5-D82285CFD69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CB156B-73F3-4E5B-83A5-D82285CFD69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CB156B-73F3-4E5B-83A5-D82285CFD69D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,8 +3,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 //using OrmLight.Linq;
-using OrmLight.Custom;
 using System.Linq;
+//using OrmLight;
+using OrmLight.Custom;
 
 namespace OrmLight
 {
@@ -17,11 +18,31 @@ namespace OrmLight
             var routeList = dal.Get<RouteEntity>().Where(r => r.Name.Equals("John")).OrderByDescending(r => r.Id).Take(20).Skip(10).ToList();
             //var routeList = dal.Get<RouteEntity>().Where(r => r.Name.Equals("John")).ToList();
 
+            //var route = new RouteEntity();
+            //route.Id = 42;
+            //route.Name = "John";
+            //route.Name = "John";
+
+            //route.Name = null;
+            //route.Id = -1;
+            //route.Name = null;
+
+            //route.Id = 17;
+            //route.Name = "Bill";
+
             Console.ReadKey();
+        }
+
+        public static void NewTest()
+        {
+
         }
     }
 
-    public class RouteEntity : BaseEntity
+    
+
+    //public class RouteEntity : EntityBase
+    public class RouteEntity : EntityBase
     {
         private long _id;
         private string _name;
