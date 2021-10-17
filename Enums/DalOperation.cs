@@ -11,6 +11,7 @@ namespace OrmLight
         Create,
         Read,
         Update,
-        Delete
+        Delete,
+        Count
     }
 }

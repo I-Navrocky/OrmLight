@@ -8,7 +8,6 @@ namespace OrmLight.Linq
 {
     public class QueryableData<TEntity> : IOrderedQueryable<TEntity>
     {
-        //private DataAccessLayerBase _DAL;
         private IQueryProvider _Provider;
         private Expression _Expression;
 
@@ -18,7 +17,6 @@ namespace OrmLight.Linq
 
         public QueryableData(DataAccessLayerBase dal, DalOperation operation)
         {
-            //_DAL = dal;
             _Provider = new QueryProvider(dal, operation);
             _Expression = Expression.Constant(this);
         }
@@ -34,7 +32,6 @@ namespace OrmLight.Linq
             if (!typeof(IQueryable<TEntity>).IsAssignableFrom(expression.Type))
                 throw new ArgumentOutOfRangeException("expression");
 
-            //_DAL = dal;
             _Provider = provider;
             _Expression = expression;
         }
